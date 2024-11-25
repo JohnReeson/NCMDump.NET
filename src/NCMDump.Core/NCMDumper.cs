@@ -88,7 +88,7 @@ namespace NCMDump.Core
                 aes.Mode = CipherMode.ECB;
                 aes.Key = metaKey;
                 var cleanText = aes.DecryptEcb(buffer, PaddingMode.PKCS7);
-                var MetaJsonString = Encoding.UTF8.GetString(cleanText.AsSpan(6));
+                var MetaJsonString = Encoding.UTF8.GetString(cleanText.AsSpan(6)).Replace(",0]", ",\"0\"]");
                 JsonSerializerOptions option = new JsonSerializerOptions();
                 MetaInfo metainfo = JsonSerializer.Deserialize<MetaInfo>(MetaJsonString);
                 return metainfo;
